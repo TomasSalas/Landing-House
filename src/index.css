@@ -1,0 +1,31 @@
+@import url("https://p.typekit.net/p.css?s=1&k=jsw5ref&ht=tk&f=53899.54337&a=174136615&app=typekit&e=css");
+@import "tailwindcss";
+
+@font-face {
+  font-family: "chorine-large";
+  src: url("https://use.typekit.net/af/f75def/0000000000000000775736d1/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),
+       url("https://use.typekit.net/af/f75def/0000000000000000775736d1/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),
+       url("https://use.typekit.net/af/f75def/0000000000000000775736d1/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 100;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "baloo-2";
+  src: url("https://use.typekit.net/af/c507ed/0000000000000000775031ef/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),
+       url("https://use.typekit.net/af/c507ed/0000000000000000775031ef/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),
+       url("https://use.typekit.net/af/c507ed/0000000000000000775031ef/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+.tk-chorine-large { font-family: "chorine-large", sans-serif; }
+.tk-baloo-2 { font-family: "baloo-2", sans-serif; }
+
+body{
+  overscroll-behavior: none;
+}
