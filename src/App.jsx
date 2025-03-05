@@ -1,8 +1,32 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { MapPin, Clock, Phone } from 'lucide-react'
-import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa6'
+import { FaInstagram, FaFacebook } from 'react-icons/fa6'
 import Logo from './assets/LogoNew.png'
+import BackgroundImage from './assets/fondo.png'
+
+const AnimatedBackground = () => {
+  return (
+    <div className='fixed inset-0 z-0 overflow-hidden'>
+      <motion.div
+        className='absolute inset-0 bg-cover bg-center bg-no-repeat'
+        style={{
+          backgroundImage: `url(${BackgroundImage})`,
+          filter: 'blur(10px)',
+          opacity: 0.3,
+        }}
+        animate={{
+          scale: [1, 1.05, 1],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: 'easeInOut',
+        }}
+      />
+    </div>
+  )
+}
 
 export default function Home () {
   const [scrollY, setScrollY] = useState(0)
@@ -23,11 +47,8 @@ export default function Home () {
 
   return (
     <div className='relative overflow-x-hidden bg-white'>
-      {/* Background elements */}
-      <div className='fixed inset-0 z-0 opacity-10'>
-        <div className='absolute top-20 left-10 w-64 h-64 rounded-full bg-[#F9C041] blur-3xl' />
-        <div className='absolute bottom-40 right-10 w-80 h-80 rounded-full bg-[#852E2E] blur-3xl' />
-      </div>
+      {/* Fondo animado */}
+      <AnimatedBackground />
 
       {/* Navigation */}
       <motion.nav
@@ -45,7 +66,7 @@ export default function Home () {
           className='relative h-12 w-[180px] mb-4'
         >
           <div className=' text-white font-bold text-xl px-4 py-2 rounded-lg'>
-            <img src={Logo} width={180} />
+            <img src={Logo || '/placeholder.svg'} width={180} />
           </div>
         </motion.div>
       </motion.nav>
@@ -58,11 +79,6 @@ export default function Home () {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className='absolute inset-0 z-0 overflow-hidden'>
-          <div className='absolute top-1/4 right-[-10%] w-[500px] h-[500px] rounded-full bg-[#F9C041]/10 blur-3xl' />
-          <div className='absolute bottom-1/4 left-[-10%] w-[400px] h-[400px] rounded-full bg-[#852E2E]/10 blur-3xl' />
-        </div>
-
         <div className='max-w-6xl mx-auto w-full flex flex-col items-center relative z-10'>
           <motion.h2
             className='text-[#852E2E] md:text-7xl text-5xl font-bold font-[chorine-large] text-center'
@@ -105,7 +121,7 @@ export default function Home () {
       <motion.section
         ref={locationsRef}
         id='ubicaciones'
-        className='min-h-screen flex flex-col justify-center py-20 px-6 md:px-12 relative z-10 bg-gradient-to-b from-white to-gray-50'
+        className='min-h-screen flex flex-col justify-center py-20 px-6 md:px-12 relative z-10'
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -119,13 +135,17 @@ export default function Home () {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className='text-4xl md:text-5xl font-bold text-[#852E2E] font-[chorine-large] mb-4'>Nuestras Ubicaciones</h2>
-            <p className='text-xl text-gray-600 max-w-2xl mx-auto'>Encuentra el restaurante The House más cercano y disfruta de nuestra deliciosa comida</p>
+            <h2 className='text-4xl md:text-5xl font-bold text-[#852E2E] font-[chorine-large] mb-4'>
+              Nuestras Ubicaciones
+            </h2>
+            <p className='text-xl text-gray-600 max-w-2xl mx-auto'>
+              Encuentra el restaurante The House más cercano y disfruta de nuestra deliciosa comida
+            </p>
           </motion.div>
 
           <div className='flex md:flex-row flex-col gap-8 max-w-4xl mx-auto'>
             <motion.div
-              className='w-full md:w-1/2 rounded-2xl p-8 shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden'
+              className='w-full md:w-1/2 rounded-2xl p-8 shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden'
               initial={{ scale: 0.9, opacity: 0, x: -50 }}
               whileInView={{ scale: 1, opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -146,11 +166,11 @@ export default function Home () {
 
                 <div className='flex items-center mb-4'>
                   <Clock className='text-[#852E2E] mr-2' size={20} />
-                  <p className='text-gray-700'>Lun - Juev: 18:00 - 00:00</p>
+                  <p className='text-gray-700'>Dom - Jue: 17:00 - 00:00</p>
                 </div>
                 <div className='flex items-center mb-4'>
                   <Clock className='text-[#852E2E] mr-2' size={20} />
-                  <p className='text-gray-700'>Vie - Dom: 18:00 - 01:00</p>
+                  <p className='text-gray-700'>Vie - Sab: 17:00 - 01:00</p>
                 </div>
 
                 <motion.button
@@ -158,27 +178,26 @@ export default function Home () {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => window.open('https://menu.fu.do/thehouseburgers&fries', '_blank')}
-
                 >
                   Ver Carta
                 </motion.button>
               </div>
 
-              <AnimatePresence>
-                {activeLocation === 'San Felipe' && (
-                  <motion.div
-                    className='absolute bottom-0 left-0 h-1 bg-[#F9C041]'
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    exit={{ width: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </AnimatePresence>
+              {/* <AnimatePresence> */}
+              {activeLocation === 'San Felipe' && (
+                <motion.div
+                  className='absolute bottom-0 left-0 h-1 bg-[#F9C041]'
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  exit={{ width: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              )}
+              {/* </AnimatePresence> */}
             </motion.div>
 
             <motion.div
-              className='w-full md:w-1/2 rounded-2xl p-8 shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden'
+              className='w-full md:w-1/2 rounded-2xl p-8 shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden'
               initial={{ scale: 0.9, opacity: 0, x: 50 }}
               whileInView={{ scale: 1, opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -199,11 +218,11 @@ export default function Home () {
 
                 <div className='flex items-center mb-4'>
                   <Clock className='text-[#852E2E] mr-2' size={20} />
-                  <p className='text-gray-700'>Lun - Juev: 18:00 - 00:00</p>
+                  <p className='text-gray-700'>Dom - Jue: 17:00 - 00:00</p>
                 </div>
                 <div className='flex items-center mb-4'>
                   <Clock className='text-[#852E2E] mr-2' size={20} />
-                  <p className='text-gray-700'>Vie - Dom: 18:00 - 01:00</p>
+                  <p className='text-gray-700'>Vie - Sab: 17:00 - 01:00</p>
                 </div>
 
                 <motion.button
@@ -216,30 +235,21 @@ export default function Home () {
                 </motion.button>
               </div>
 
-              <AnimatePresence>
-                {activeLocation === 'Los Andes' && (
-                  <motion.div
-                    className='absolute bottom-0 left-0 h-1 bg-[#F9C041]'
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    exit={{ width: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </AnimatePresence>
+              {/* <AnimatePresence> */}
+              {activeLocation === 'Los Andes' && (
+                <motion.div
+                  className='absolute bottom-0 left-0 h-1 bg-[#F9C041]'
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  exit={{ width: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              )}
+              {/* </AnimatePresence> */}
             </motion.div>
           </div>
         </div>
       </motion.section>
-
-      {/* Testimonials Section */}
-      <motion.section
-        className='py-20 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white relative z-10'
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      />
 
       {/* Call to Action */}
       <motion.section
@@ -258,11 +268,31 @@ export default function Home () {
             viewport={{ once: true }}
           >
             <div className='absolute top-0 right-0 w-64 h-64 bg-[#F9C041]/20 rounded-full -mr-32 -mt-32' />
-            <div className='absolute bottom-0 left-0 w-64 h-64 bg-[#F9C041]/10 rounded-full -ml-32 -mb-32' />
+            <div className='absolute bottom-0 left-0 w-64 h-64 bg-[#BC5D2E]/20 rounded-full -ml-32 -mb-32' />
+
+            {/* Elementos animados adicionales */}
+            <motion.div
+              className='absolute w-40 h-40 rounded-full bg-[#BC5D2E]/10 blur-xl'
+              animate={{
+                x: ['-5%', '5%'],
+                y: ['5%', '-5%'],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }}
+              style={{ top: '30%', right: '20%' }}
+            />
 
             <div className='relative z-10'>
-              <h2 className='text-4xl md:text-5xl font-bold font-[chorine-large] mb-6'>¿Listo para probar The House?</h2>
-              <p className='text-xl text-white/80 max-w-2xl mx-auto mb-8'>Haz tu pedido ahora y disfruta de la mejor experiencia gastronómica en la comodidad de tu hogar</p>
+              <h2 className='text-4xl md:text-5xl font-bold font-[chorine-large] mb-6 text-[#F9C041]'>
+                ¿Listo para probar The House?
+              </h2>
+              <p className='text-xl text-white/80 max-w-2xl mx-auto mb-8'>
+                Haz tu pedido ahora y disfruta de la mejor experiencia gastronómica en la comodidad de tu hogar
+              </p>
             </div>
           </motion.div>
         </div>
@@ -282,15 +312,18 @@ export default function Home () {
             <div className='col-span-1 md:col-span-1'>
               <div className='mb-6'>
                 <div className='font-bold text-xl px-4 py-2 rounded-lg inline-block'>
-                  <img src={Logo} />
+                  <img src={Logo || '/placeholder.svg'} />
                 </div>
               </div>
 
-              <p className='mb-6 text-white'>Disfruta de la mejor experiencia gastronómica con sabores únicos y un ambiente acogedor.</p>
+              <p className='mb-6 text-white'>
+                Disfruta de la mejor experiencia gastronómica con sabores únicos y un ambiente acogedor.
+              </p>
 
               <div className='flex space-x-4'>
                 <a
-                  onClick={() => window.open('https://www.facebook.com/people/The-House-Burgers-and-Fries/61558592062046/', '_blank')}
+                  onClick={() =>
+                    window.open('https://www.facebook.com/people/The-House-Burgers-and-Fries/61558592062046/', '_blank')}
                   className='w-10 h-10 rounded-full bg-[#852E2E] flex items-center justify-center hover:bg-[#F9C041] transition-colors'
                 >
                   <FaFacebook size={20} />
@@ -300,12 +333,6 @@ export default function Home () {
                   className='w-10 h-10 rounded-full bg-[#852E2E] flex items-center justify-center hover:bg-[#F9C041] transition-colors'
                 >
                   <FaInstagram size={20} />
-                </a>
-                <a
-                  onClick={() => window.open('https://wa.me/+56932642903', '_blank')}
-                  className='w-10 h-10 rounded-full bg-[#852E2E] flex items-center justify-center hover:bg-[#F9C041] transition-colors'
-                >
-                  <FaWhatsapp size={20} />
                 </a>
               </div>
             </div>
@@ -323,7 +350,10 @@ export default function Home () {
                 </li>
                 <li className='flex items-start'>
                   <Clock className='mr-2 mt-1 text-[#F9C041]' size={16} />
-                  <span className='text-white'>Lun - Dom: 12:00 - 23:00</span>
+                  <div className='flex flex-col'>
+                    <span className='text-white'>Dom - Jue: 05:00 - 00:00</span>
+                    <span className='text-white'>Vie - Lun: 05:00 - 01:00</span>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -341,13 +371,16 @@ export default function Home () {
                 </li>
                 <li className='flex items-start'>
                   <Clock className='mr-2 mt-1 text-[#F9C041]' size={16} />
-                  <span className='text-white'>Lun - Dom: 12:00 - 23:00</span>
+                  <div className='flex flex-col'>
+                    <span className='text-white'>Dom - Jue: 05:00 - 00:00</span>
+                    <span className='text-white'>Vie - Lun: 05:00 - 01:00</span>
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className='border-t border-white/50 mt-12 pt-8 text-center text-white'>
+          <div className='mt-12 pt-8 text-center text-white'>
             <p>© {new Date().getFullYear()} The House. Todos los derechos reservados.</p>
           </div>
         </div>
