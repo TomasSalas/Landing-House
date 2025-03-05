@@ -165,6 +165,12 @@ export default function Home () {
                 <p className='text-gray-600 mb-6'>Ramón Freire 161, San Felipe</p>
 
                 <div className='flex items-center mb-4'>
+                <Phone className='mr-2 text-[#852E2E]' size={20} />
+                <p className='text-gray-700'>+56 9 3264 2903</p>
+                
+                </div>
+
+                <div className='flex items-center mb-4'>
                   <Clock className='text-[#852E2E] mr-2' size={20} />
                   <p className='text-gray-700'>Dom - Jue: 17:00 - 00:00</p>
                 </div>
@@ -215,6 +221,10 @@ export default function Home () {
                 </div>
 
                 <p className='text-gray-600 mb-6'>San Rafael 1720, Los Andes</p>
+                <div className='flex items-center mb-4'>
+                  <Phone className='mr-2 text-[#852E2E]' size={20} />
+                  <p className='text-gray-700'>+56 9 4431 6949</p>
+                </div>
 
                 <div className='flex items-center mb-4'>
                   <Clock className='text-[#852E2E] mr-2' size={20} />
@@ -346,7 +356,7 @@ export default function Home () {
                 </li>
                 <li className='flex items-start'>
                   <Phone className='mr-2 mt-1 text-[#F9C041]' size={16} />
-                  <span className='text-white'>+56 9 1234 5678</span>
+                  <span className='text-white'>+56 9 3264 2903</span>
                 </li>
                 <li className='flex items-start'>
                   <Clock className='mr-2 mt-1 text-[#F9C041]' size={16} />
@@ -367,7 +377,7 @@ export default function Home () {
                 </li>
                 <li className='flex items-start'>
                   <Phone className='mr-2 mt-1 text-[#F9C041]' size={16} />
-                  <span className='text-white'>+56 9 8765 4321</span>
+                  <span className='text-white'>+56 9 4431 6949</span>
                 </li>
                 <li className='flex items-start'>
                   <Clock className='mr-2 mt-1 text-[#F9C041]' size={16} />
